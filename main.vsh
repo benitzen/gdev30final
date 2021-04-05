@@ -9,6 +9,12 @@ layout(location = 1) in vec3 vertexColor;
 // Vertex UV coordinate
 layout(location = 2) in vec2 vertexUV;
 
+// Vertex Normal
+layout(location = 3) in vec3 vertexNormal;
+
+out vec3 fragPosition;
+out vec3 fragNormal;
+
 // UV coordinate (will be passed to the fragment shader)
 out vec2 outUV;
 
@@ -30,6 +36,10 @@ void main()
 	finalPosition = transformationMatrix * finalPosition;
 
 	// Give OpenGL the final position of our vertex
+
+	fragPosition = vec3(model * vec4(vertexPosition, 1.0f));
+	fragNormal = mat3(transpose(inverse((model))) * vertexNormal);
+
 	gl_Position = finalPosition;
 
 	outUV = vertexUV;
