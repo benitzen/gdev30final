@@ -115,61 +115,59 @@ int main()
 
 	Vertex vertices[36];
 
-	// Position				Color				UV
-	//Front Face
-	vertices[0] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[1] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[2] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+    //Front
+    vertices[0] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f };    // Lower-left
+    vertices[1] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,        0.5f, 0.33f };    // Lower-right
+    vertices[2] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f };    // Upper-right
 
-	vertices[3] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[4] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[5] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+    vertices[3] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f };    // Upper-right
+    vertices[4] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,        0.25f, 0.67f };    // Upper-left
+    vertices[5] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f };    // Lower-left
+    
+    //Back
+    vertices[6] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f };    // Lower-left
+    vertices[7] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,        0.75f, 0.33f };    // Lower-right
+    vertices[8] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f };    // Upper-right
 
-
-	//Back Face
-	vertices[6] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[7] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[8] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
-
-	vertices[9] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[10] = { -0.5f, 0.5f, -0.5f,	255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[11] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		1.0f, 0.0f };	// Lower-right
-
-	//Top Face
-	vertices[12] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[13] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[14] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
-
-	vertices[15] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[16] = { -0.5f, 0.5f, -0.5f,	255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[17] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-
-	//Bottom Face
-	vertices[18] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[19] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[20] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
-
-	vertices[21] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[22] = { -0.5f, -0.5f,-0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[23] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-
-	//Right Face
-	vertices[24] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[25] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[26] = { 0.5f, 0.5f, -0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
-
-	vertices[27] = { 0.5f, 0.5f, -0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[28] = { 0.5f, 0.5f, 0.5f,			255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[29] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		0.0f, 0.0f };	// Lower-left
-
-	//Left Face
-	vertices[30] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
-	vertices[31] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
-	vertices[32] = { -0.5f, 0.5f, 0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
-
-	vertices[33] = { -0.5f, 0.5f, 0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
-	vertices[34] = { -0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
-	vertices[35] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+    vertices[9] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f };    // Upper-right
+    vertices[10] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        1.0f, 0.67f };    // Upper-left
+    vertices[11] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f };    // Lower-left
+    
+    //Left Face
+    vertices[12] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f };// Lower-left back
+    vertices[13] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,       0.25f, 0.33f }; // Lower-left front
+    vertices[14] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f };  // Upper-left front
+    
+    vertices[15] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f };  // Upper-left front
+    vertices[16] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,       0.0f, 0.67f };  // Upper-left back
+    vertices[17] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f };  // Lower-left back
+    
+    //Right Face
+    vertices[18] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f };  // Lower-right Front
+    vertices[19] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,     0.75f, 0.33f };  // Lower-right Back
+    vertices[20] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,     0.75f, 0.67f };   // Upper-right Back
+    
+    vertices[21] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,      0.75f, 0.67f };   // Upper-right Back
+    vertices[22] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,      0.5f, 0.67f };   // Upper-right Front
+    vertices[23] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,     0.5f, 0.33f };  // Lower-right Front
+    
+    //Top
+    vertices[24] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f };  // Upper-left Front
+    vertices[25] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,       0.5f, 0.67f };  // Upper-right Front
+    vertices[26] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f };  // Upper-right Back
+    
+    vertices[27] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f };  // Upper-right Back
+    vertices[28] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        0.25f, 1.0f }; // Upper-left Back
+    vertices[29] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f };  // Upper-left Front
+     
+    //Bottom
+    vertices[30] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,     0.25f, 0.0f };  // Lower-left Back
+    vertices[31] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,      0.5f, 0.0f };  // Lower-right Back
+    vertices[32] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,       0.5f, 0.33f };  // Lower-right Front
+    
+    vertices[33] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f };  // Lower-right Front
+    vertices[34] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f };  // Lower-left Front
+    vertices[35] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.25f, 0.0f };  // Lower-left Back
 
 	// Create a vertex buffer object (VBO), and upload our vertices data to the VBO
 	GLuint vbo;
@@ -200,6 +198,7 @@ int main()
 
 	glBindVertexArray(0);
 
+    //file path -- anton /Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/
 	// Create a shader program
 	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 
@@ -224,7 +223,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("pepe.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -241,7 +240,7 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		// Upload the image data to GPU memory
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, imageData);
 
 		// If we set minification to use mipmaps, we can tell OpenGL to generate the mipmaps for us
 		//glGenerateMipmap(GL_TEXTURE_2D);
@@ -255,6 +254,43 @@ int main()
 	{
 		std::cerr << "Failed to load image" << std::endl;
 	}
+    
+    GLuint tex1;
+    glGenTextures(1, &tex1);
+
+    // Read the image data for a second texture, and store it in our unsigned char array
+    // We can reuse the "imageData" array since we already uploaded the previous image data
+    // to GPU memory. The same applies for imageWidth, imageHeight, and numChannels
+    imageData = stbi_load("metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    // Make sure that we actually loaded the image before uploading the data to the GPU
+    if (imageData != nullptr)
+    {
+        // Our texture is 2D, so we bind our texture to the GL_TEXTURE_2D target
+        glBindTexture(GL_TEXTURE_2D, tex1);
+
+        // Set the filtering methods for magnification and minification
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        // Set the wrapping method for the s-axis (x-axis) and t-axis (y-axis)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        // Upload the image data to GPU memory
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+        // If we set minification to use mipmaps, we can tell OpenGL to generate the mipmaps for us
+        //glGenerateMipmap(GL_TEXTURE_2D);
+
+        // Once we have copied the data over to the GPU, we can delete
+        // the data on the CPU side, since we won't be using it anymore
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -282,11 +318,15 @@ int main()
 		// Bind our texture to texture unit 0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, tex);
+        
+        // Bind our second texture to texture unit 1
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, tex1);
 
 		// Make our sampler in the fragment shader use texture unit 0
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		glUniform1i(texUniformLocation, 0);
-
+        
 
 		// View Matrix and Perspective Projection Matrix
 		glm::mat4 viewMatrix = glm::mat4(1.0f);
@@ -313,6 +353,8 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 24, 6);
 		glDrawArrays(GL_TRIANGLES, 30, 6);
 
+        //remove texture
+        glUniform1i(texUniformLocation, 1);
 
 		// Table Cube
 		glm::mat4 secondCube = glm::mat4(1.0f);
@@ -373,44 +415,43 @@ int main()
 
 		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
-			cameraMoveLeftRight -= 0.001f;
-			cameraLookLeftRight -= 0.001f;
+			cameraMoveLeftRight -= 0.1f;
+			cameraLookLeftRight -= 0.1f;
 		}
 		else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
-			cameraMoveLeftRight += 0.001f;
-			cameraLookLeftRight += 0.001f;
+			cameraMoveLeftRight += 0.1f;
+			cameraLookLeftRight += 0.1f;
 
 		}
 		else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
-			cameraMoveForwardBackward -= 0.001f;
-			cameraLookForwardBackward -= 0.001f;
+			cameraMoveForwardBackward -= 0.1f;
+			cameraLookForwardBackward -= 0.1f;
 
 		}
 		else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
-			cameraMoveForwardBackward += 0.001f;
-			cameraLookForwardBackward += 0.001f;
+			cameraMoveForwardBackward += 0.1f;
+			cameraLookForwardBackward += 0.1f;
 		}
 		
 		else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
-			cameraLookUpDown += 0.001f;
+			cameraLookUpDown += 0.1f;
 		}
 		else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		{
-			cameraLookUpDown -= 0.001f;
+			cameraLookUpDown -= 0.1f;
 		}
 		else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		{
-			cameraLookLeftRight -= 0.001f;
+			cameraLookLeftRight -= 0.1f;
 		}
 		else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		{
-			cameraLookLeftRight += 0.001f;
+			cameraLookLeftRight += 0.1f;
 		}
-
 		else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
 			cameraMoveForwardBackward = 1.0f;
