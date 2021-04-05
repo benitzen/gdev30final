@@ -30,7 +30,7 @@ void main()
 
 	// Diffuse
 	vec3 norm = normalize(fragNormal);
-	vec3 lightDir = normalize(fragPosition - lightPos);
+	vec3 lightDir = normalize(lightPos - fragPosition);
 	vec3 diffuseColor = vec3(1.0f,1.0f,1.0f);
 	float diff = clamp(dot(lightDir, fragNormal), 0,1);
 	vec3 diffuseFinal = diffuseColor * diff;
@@ -48,7 +48,7 @@ void main()
     
     
 //	vec3 finalColor= (ambient + diffuseFinal) * outColor;
-    vec4 finalColor= vec4(ambient, 1.0f) * fragColor;
+    vec4 finalColor= vec4(ambient + diffuseFinal, 1.0f) * fragColor;
 //	fragColor = fragColor * vec4(finalColor, 1.0f);
     fragColor = finalColor * fogFactor * fogColor;
 }
