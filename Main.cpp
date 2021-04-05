@@ -113,7 +113,7 @@ int main()
 
 	// --- Vertex specification ---
 
-	Vertex vertices[36];
+	Vertex vertices[60];
 
     //Front
     vertices[0] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f };    // Lower-left
@@ -168,6 +168,39 @@ int main()
     vertices[33] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f };  // Lower-right Front
     vertices[34] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f };  // Lower-left Front
     vertices[35] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.25f, 0.0f };  // Lower-left Back
+
+	//Octahedron
+	vertices[36] = { 0.0f, 0.0f, 0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[37] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[38] = { 0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[39] = { 0.0f, 0.0f, -0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[40] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[41] = { 0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[42] = { 0.0f, 0.0f, -0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[43] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[44] = { -0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[45] = { 0.0f, 0.0f, 0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[46] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[47] = { -0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[48] = { 0.0f, 0.0f, 0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[49] = { 0.0f, -0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[50] = { 0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[51] = { 0.0f, 0.0f, -0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[52] = { 0.0f, -0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[53] = { 0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[54] = { 0.0f, 0.0f, -0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[55] = { 0.0f, -0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[56] = { -0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
+
+	vertices[57] = { 0.0f, 0.0f, 0.5f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[58] = { 0.0f, -0.5f, 0.0f,		255, 255, 255,		0.0f, 0.0f };
+	vertices[59] = { -0.5f, 0.0f, 0.0f,		255, 255, 255,		1.0f, 0.0f };
 
 	// Create a vertex buffer object (VBO), and upload our vertices data to the VBO
 	GLuint vbo;
@@ -401,6 +434,23 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 18, 6);
 		glDrawArrays(GL_TRIANGLES, 24, 6);
 		glDrawArrays(GL_TRIANGLES, 30, 6);
+
+		// Bulb
+		glm::mat4 octahedron = glm::mat4(1.0f);
+		octahedron = glm::translate(octahedron, glm::vec3(0.0f, 1.0f, 0.0f));
+		octahedron = glm::scale(octahedron, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		finalMatrix = perspectiveProjMatrix * viewMatrix * octahedron;
+		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+		glDrawArrays(GL_TRIANGLES, 36, 3);
+		glDrawArrays(GL_TRIANGLES, 39, 3);
+		glDrawArrays(GL_TRIANGLES, 42, 3);
+		glDrawArrays(GL_TRIANGLES, 45, 3);
+		glDrawArrays(GL_TRIANGLES, 48, 3);
+		glDrawArrays(GL_TRIANGLES, 51, 3);
+		glDrawArrays(GL_TRIANGLES, 54, 3);
+		glDrawArrays(GL_TRIANGLES, 57, 3);
 
 
 
