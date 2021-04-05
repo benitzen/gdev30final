@@ -42,7 +42,6 @@ void main()
     // mat3 modelNormalMat = mat3(transpose(inverse(model)));
     
     fragPosition = vec3(semiFinalPosition);
-    
     fragNormal = vec3(model) * vertexNormal;
     
 //    gl_Position = projection * view * model * semiFinalPosition;

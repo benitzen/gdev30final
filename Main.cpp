@@ -240,7 +240,7 @@ int main()
 
     //file path -- anton /Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/
 	// Create a shader program
-	GLuint program = CreateShaderProgram("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.vsh", "/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.fsh");
+	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 
 	// Tell OpenGL the dimensions of the region where stuff will be drawn.
 	// For now, tell OpenGL to use the whole screen
@@ -263,7 +263,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -301,7 +301,7 @@ int main()
     // Read the image data for a second texture, and store it in our unsigned char array
     // We can reuse the "imageData" array since we already uploaded the previous image data
     // to GPU memory. The same applies for imageWidth, imageHeight, and numChannels
-    imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/metal2.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    imageData = stbi_load("metal2.jpg", &imageWidth, &imageHeight, &numChannels, 0);
     // Make sure that we actually loaded the image before uploading the data to the GPU
     if (imageData != nullptr)
     {
@@ -375,7 +375,6 @@ int main()
         
 		// Light
 		glm::vec3 lightColorVector(1.0f, 1.0f, 1.0f);
-//		glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, glm::value_ptr(lightColorVector));
         glUniform3f(glGetUniformLocation(program, "lightColor"), 1.0f, 1.0f, 1.0f);
 
 		GLint lightPosUniformLocation = glGetUniformLocation(program, "lightPos");
@@ -426,7 +425,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * secondCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -442,7 +441,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * thirdCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -459,7 +458,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * fourthCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
