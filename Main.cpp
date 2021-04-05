@@ -59,7 +59,7 @@ struct Vertex
 	GLfloat x, y, z;	// Position
 	GLubyte r, g, b;	// Color
 	GLfloat u, v;		// UV coordinates
-	GLfloat nx, ny, nz;
+	GLfloat nx, ny, nz; //Normal
 };
 
 /// <summary>
@@ -234,7 +234,7 @@ int main()
 
     //file path -- anton /Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/
 	// Create a shader program
-	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
+	GLuint program = CreateShaderProgram("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.vsh", "/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.fsh");
 
 	// Tell OpenGL the dimensions of the region where stuff will be drawn.
 	// For now, tell OpenGL to use the whole screen
@@ -257,7 +257,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -295,7 +295,7 @@ int main()
     // Read the image data for a second texture, and store it in our unsigned char array
     // We can reuse the "imageData" array since we already uploaded the previous image data
     // to GPU memory. The same applies for imageWidth, imageHeight, and numChannels
-    imageData = stbi_load("metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
     // Make sure that we actually loaded the image before uploading the data to the GPU
     if (imageData != nullptr)
     {
@@ -365,16 +365,14 @@ int main()
 		// View Matrix and Perspective Projection Matrix
 		glm::mat4 viewMatrix = glm::mat4(1.0f);
 		viewMatrix = glm::lookAt(glm::vec3(cameraMoveLeftRight, 0.0f, cameraMoveForwardBackward), glm::vec3(cameraLookLeftRight, cameraLookUpDown, cameraLookForwardBackward), glm::vec3(0.0f, 1.0f, 0.0f));
-
 		float aspectRatio = windowWidth / windowHeight;
 		glm::mat4 perspectiveProjMatrix = glm::perspective(90.0f, aspectRatio, 0.1f, 100.0f);
-
-		GLint lightColorUniformLocation = glGetUniformLocation(program, "lightColor");
-		glUniform3f(lightColorUniformLocation, 1.0f, 1.0f, 1.0f);
-
-		GLint lightPosUniformLocation = glGetUniformLocation(program, "lightPos");
-		glUniform3f(lightPosUniformLocation, 0.0f, 1.0f, 0.0f);
-
+        
+        // View and Projection Uniform Init
+        GLint viewMatrixUniformLocation = glGetUniformLocation(program, "view");
+        glUniformMatrix4fv(viewMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+        GLint projectionMatrixUniformLocation = glGetUniformLocation(program, "projection");
+        glUniformMatrix4fv(projectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(perspectiveProjMatrix));
 
 		// Room Cube
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
@@ -384,8 +382,13 @@ int main()
 
 		glm::mat4 finalMatrix = perspectiveProjMatrix * viewMatrix * modelMatrix;
 
+        //Transformation Matrix Init
 		GLint transformationMatrixUniformLocation = glGetUniformLocation(program, "transformationMatrix");
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        
+        //Model Matrix init
+        GLint modelMatrixUniformLocation = glGetUniformLocation(program, "model");
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -394,7 +397,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 24, 6);
 		glDrawArrays(GL_TRIANGLES, 30, 6);
 
-        //remove texture
+        //change texture to next
         glUniform1i(texUniformLocation, 1);
 
 		// Table Cube
@@ -404,6 +407,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * secondCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -419,6 +423,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * thirdCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -435,6 +440,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * fourthCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -518,6 +524,8 @@ int main()
 			cameraLookUpDown = 0.0f;
 			cameraLookLeftRight = 0.0f;
 		}
+        glUniformMatrix4fv(viewMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+        glUniformMatrix4fv(projectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(perspectiveProjMatrix));
 	}
 
 	// --- Cleanup ---

@@ -23,25 +23,30 @@ out vec3 outColor;
 
 // Transformation matrix
 uniform mat4 transformationMatrix;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
 
 void main()
 {
 	// Convert our vertex position to homogeneous coordinates by introducing the w-component.
 	// Vertex positions are ... positions, so we specify the w-coordinate as 1.0.
-	vec4 finalPosition = vec4(vertexPosition, 1.0);
+	vec4 semiFinalPosition = vec4(vertexPosition, 1.0);
 
 	// We multiply the vertex position with our transformation matrix, which will
 	// ultimately transform our vertex based on the combination of transformations that
 	// is contained inside the transformationMatrix uniform.
-	finalPosition = transformationMatrix * finalPosition;
+    semiFinalPosition = transformationMatrix * semiFinalPosition;
 
 	// Give OpenGL the final position of our vertex
-
-	fragPosition = vec3(model * vec4(vertexPosition, 1.0f));
-	fragNormal = mat3(transpose(inverse((model))) * vertexNormal);
-
-	gl_Position = finalPosition;
-
+    mat3 modelNormalMat = mat3(transpose(inverse(model)));
+    
+    fragPosition = vec3(semiFinalPosition);
+    
+    fragNormal = vec3(modelNormalMat * vertexNormal);
+    
+    gl_Position = projection * view * model * semiFinalPosition;
+	
 	outUV = vertexUV;
 	outColor = vertexColor;
 }

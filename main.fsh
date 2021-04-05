@@ -20,6 +20,8 @@ uniform sampler2D tex;
 
 void main()
 {
+    fragColor = texture(tex, outUV);
+    
 	// Ambient
 	float ambientStrength = 0.1f;
 	vec3 ambient = ambientStrength * lightColor;
@@ -27,11 +29,11 @@ void main()
 
 	// Diffuse
 	vec3 norm = normalize(fragNormal);
-	vec3 lightDir = normalize(lightPos – fragPosition);
+	vec3 lightDir = normalize(lightPos - fragPosition);
 	float diff = max(dot(norm, lightDir), 0.f);
 	vec3 diffuse = diff * lightColor;
 
-	fragColor = texture(tex, outUV);
-	vec4 finalColor= vec4(ambient + diffuse,1.0f) * fragColor;
+	
+	vec4 finalColor= vec4(ambient + diffuse, 1.0f) * fragColor;
 	fragColor = finalColor;
 }
