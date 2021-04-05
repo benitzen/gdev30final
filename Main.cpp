@@ -117,58 +117,58 @@ int main()
 	Vertex vertices[60];
 
     //Front
-    vertices[0] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-left
-    vertices[1] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,        0.5f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-right
-    vertices[2] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f,			0.0f,-1.0f,0.0f };    // Upper-right
+    vertices[0] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-left
+    vertices[1] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,        0.5f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-right
+    vertices[2] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f,			0.0f,0.0f,-1.0f };    // Upper-right
 
-    vertices[3] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f,			0.0f,-1.0f,0.0f };    // Upper-right
-    vertices[4] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,        0.25f, 0.67f,		0.0f,-1.0f,0.0f };    // Upper-left
-    vertices[5] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-left
+    vertices[3] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f,			0.0f,0.0f,-1.0f };    // Upper-right
+    vertices[4] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,        0.25f, 0.67f,		0.0f,0.0f,-1.0f };    // Upper-left
+    vertices[5] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-left
     
     //Back
-    vertices[6] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-left
-    vertices[7] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,        0.75f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-right
-    vertices[8] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f,		0.0f,-1.0f,0.0f };    // Upper-right
+    vertices[6] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-left
+    vertices[7] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,        0.75f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-right
+    vertices[8] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f,		0.0f,0.0f,-1.0f };    // Upper-right
 
-    vertices[9] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f,		0.0f,-1.0f,0.0f };    // Upper-right
-    vertices[10] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        1.0f, 0.67f,		0.0f,-1.0f,0.0f };    // Upper-left
-    vertices[11] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f,		0.0f,-1.0f,0.0f };    // Lower-left
+    vertices[9] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f,		0.0f,0.0f,-1.0f };    // Upper-right
+    vertices[10] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        1.0f, 0.67f,		0.0f,0.0f,-1.0f };    // Upper-left
+    vertices[11] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f,		0.0f,0.0f,-1.0f };    // Lower-left
     
     //Left Face
-    vertices[12] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f,		0.0f,-1.0f,0.0f };// Lower-left back
-    vertices[13] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,       0.25f, 0.33f,		0.0f,-1.0f,0.0f }; // Lower-left front
-    vertices[14] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-left front
+    vertices[12] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f,		0.0f,0.0f,-1.0f };// Lower-left back
+    vertices[13] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,       0.25f, 0.33f,		0.0f,0.0f,-1.0f }; // Lower-left front
+    vertices[14] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-left front
     
-    vertices[15] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-left front
-    vertices[16] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,       0.0f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-left back
-    vertices[17] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-left back
+    vertices[15] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-left front
+    vertices[16] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,       0.0f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-left back
+    vertices[17] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-left back
     
     //Right Face
-    vertices[18] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-right Front
-    vertices[19] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,     0.75f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-right Back
-    vertices[20] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,     0.75f, 0.67f,		0.0f,-1.0f,0.0f };   // Upper-right Back
+    vertices[18] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-right Front
+    vertices[19] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,     0.75f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-right Back
+    vertices[20] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,     0.75f, 0.67f,		0.0f,0.0f,-1.0f };   // Upper-right Back
     
-    vertices[21] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,      0.75f, 0.67f,		0.0f,-1.0f,0.0f };   // Upper-right Back
-    vertices[22] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,      0.5f, 0.67f,		0.0f,-1.0f,0.0f };   // Upper-right Front
-    vertices[23] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,     0.5f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-right Front
+    vertices[21] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,      0.75f, 0.67f,		0.0f,0.0f,-1.0f };   // Upper-right Back
+    vertices[22] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,      0.5f, 0.67f,		0.0f,0.0f,-1.0f };   // Upper-right Front
+    vertices[23] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,     0.5f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-right Front
     
     //Top
-    vertices[24] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-left Front
-    vertices[25] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,       0.5f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-right Front
-    vertices[26] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f,		0.0f,-1.0f,0.0f };  // Upper-right Back
+    vertices[24] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-left Front
+    vertices[25] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,       0.5f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-right Front
+    vertices[26] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f,		0.0f,0.0f,-1.0f };  // Upper-right Back
     
-    vertices[27] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f,		0.0f,-1.0f,0.0f };  // Upper-right Back
-    vertices[28] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        0.25f, 1.0f,		0.0f,-1.0f,0.0f }; // Upper-left Back
-    vertices[29] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f,		0.0f,-1.0f,0.0f };  // Upper-left Front
+    vertices[27] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 1.0f,		0.0f,0.0f,-1.0f };  // Upper-right Back
+    vertices[28] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        0.25f, 1.0f,		0.0f,0.0f,-1.0f }; // Upper-left Back
+    vertices[29] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f,		0.0f,0.0f,-1.0f };  // Upper-left Front
      
     //Bottom
-    vertices[30] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,     0.25f, 0.0f,		0.0f,-1.0f,0.0f };  // Lower-left Back
-    vertices[31] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,      0.5f, 0.0f,		0.0f,-1.0f,0.0f };  // Lower-right Back
-    vertices[32] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,       0.5f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-right Front
+    vertices[30] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,     0.25f, 0.0f,		0.0f,0.0f,-1.0f };  // Lower-left Back
+    vertices[31] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,      0.5f, 0.0f,		0.0f,0.0f,-1.0f };  // Lower-right Back
+    vertices[32] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,       0.5f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-right Front
     
-    vertices[33] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-right Front
-    vertices[34] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f,		0.0f,-1.0f,0.0f };  // Lower-left Front
-    vertices[35] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.25f, 0.0f,		0.0f,-1.0f,0.0f };  // Lower-left Back
+    vertices[33] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-right Front
+    vertices[34] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f,		0.0f,0.0f,-1.0f };  // Lower-left Front
+    vertices[35] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.25f, 0.0f,		0.0f,0.0f,-1.0f };  // Lower-left Back
 
 	//Octahedron
 	vertices[36] = { 0.0f, 0.0f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.0f,0.0f,0.0f };
@@ -230,11 +230,15 @@ int main()
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, u)));
 
+	// Vertex attribute 2 - Normal
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
+
 	glBindVertexArray(0);
 
     //file path -- anton /Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/
 	// Create a shader program
-	GLuint program = CreateShaderProgram("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.vsh", "/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.fsh");
+	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 
 	// Tell OpenGL the dimensions of the region where stuff will be drawn.
 	// For now, tell OpenGL to use the whole screen
@@ -257,7 +261,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -295,7 +299,7 @@ int main()
     // Read the image data for a second texture, and store it in our unsigned char array
     // We can reuse the "imageData" array since we already uploaded the previous image data
     // to GPU memory. The same applies for imageWidth, imageHeight, and numChannels
-    imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    imageData = stbi_load("metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
     // Make sure that we actually loaded the image before uploading the data to the GPU
     if (imageData != nullptr)
     {
@@ -361,6 +365,12 @@ int main()
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		glUniform1i(texUniformLocation, 0);
         
+		// Light
+		glm::vec3 lightColorVector(1.0f, 1.0f, 1.0f);
+		glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, glm::value_ptr(lightColorVector));
+
+		GLint lightPosUniformLocation = glGetUniformLocation(program, "lightPos");
+		glUniform3f(lightPosUniformLocation, 0.0f, 1.0f, 0.0f);
 
 		// View Matrix and Perspective Projection Matrix
 		glm::mat4 viewMatrix = glm::mat4(1.0f);

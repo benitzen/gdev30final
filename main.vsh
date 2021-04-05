@@ -39,11 +39,11 @@ void main()
     semiFinalPosition = transformationMatrix * semiFinalPosition;
 
 	// Give OpenGL the final position of our vertex
-    mat3 modelNormalMat = mat3(transpose(inverse(model)));
+    // mat3 modelNormalMat = mat3(transpose(inverse(model)));
     
     fragPosition = vec3(semiFinalPosition);
     
-    fragNormal = vec3(modelNormalMat * vertexNormal);
+    fragNormal = vec3(model) * vertexNormal;
     
     gl_Position = projection * view * model * semiFinalPosition;
 	

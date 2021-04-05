@@ -23,17 +23,18 @@ void main()
     fragColor = texture(tex, outUV);
     
 	// Ambient
-	float ambientStrength = 0.1f;
+	float ambientStrength = 2.0f;
 	vec3 ambient = ambientStrength * lightColor;
 	
 
 	// Diffuse
 	vec3 norm = normalize(fragNormal);
-	vec3 lightDir = normalize(lightPos - fragPosition);
-	float diff = max(dot(norm, lightDir), 0.f);
-	vec3 diffuse = diff * lightColor;
+	vec3 lightDir = normalize(fragPosition - lightPos);
+	vec3 diffuseColor = vec3(1.f,1.f,1.f);
+	float diff = clamp(dot(lightDir, fragNormal), 0,1);
+	vec3 diffuseFinal = diffuseColor * diff;
 
 	
-	vec4 finalColor= vec4(ambient + diffuse, 1.0f) * fragColor;
+	vec4 finalColor= vec4(ambient + diffuseFinal, 1.0f) * fragColor;
 	fragColor = finalColor;
 }
