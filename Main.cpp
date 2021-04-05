@@ -62,6 +62,8 @@ struct Vertex
 	GLfloat nx, ny, nz; //Normal
 };
 
+GLfloat ambientStrength = 0.5f;
+
 /// <summary>
 /// Main function.
 /// </summary>
@@ -238,7 +240,7 @@ int main()
 
     //file path -- anton /Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/
 	// Create a shader program
-	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
+	GLuint program = CreateShaderProgram("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.vsh", "/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.fsh");
 
 	// Tell OpenGL the dimensions of the region where stuff will be drawn.
 	// For now, tell OpenGL to use the whole screen
@@ -261,7 +263,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/RoomTexture.png", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -299,7 +301,7 @@ int main()
     // Read the image data for a second texture, and store it in our unsigned char array
     // We can reuse the "imageData" array since we already uploaded the previous image data
     // to GPU memory. The same applies for imageWidth, imageHeight, and numChannels
-    imageData = stbi_load("metal5.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/metal2.jpg", &imageWidth, &imageHeight, &numChannels, 0);
     // Make sure that we actually loaded the image before uploading the data to the GPU
     if (imageData != nullptr)
     {
@@ -346,6 +348,7 @@ int main()
 
 		// Get time for rotation
 		time = glfwGetTime() * 60;
+        
 
 		// Use the shader program that we created
 		glUseProgram(program);
@@ -365,9 +368,15 @@ int main()
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		glUniform1i(texUniformLocation, 0);
         
+        //Ambient Strength Uniform Float
+        GLint ambientUniformLocation = glGetUniformLocation(program, "ambientStrength");
+        glUniform1f(ambientUniformLocation, ambientStrength);
+    
+        
 		// Light
 		glm::vec3 lightColorVector(1.0f, 1.0f, 1.0f);
-		glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, glm::value_ptr(lightColorVector));
+//		glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, glm::value_ptr(lightColorVector));
+        glUniform3f(glGetUniformLocation(program, "lightColor"), 1.0f, 1.0f, 1.0f);
 
 		GLint lightPosUniformLocation = glGetUniformLocation(program, "lightPos");
 		glUniform3f(lightPosUniformLocation, 0.0f, 1.0f, 0.0f);
@@ -417,7 +426,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * secondCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -433,7 +442,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * thirdCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -450,7 +459,7 @@ int main()
 
 		finalMatrix = perspectiveProjMatrix * viewMatrix * fourthCube;
 		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+//        glUniformMatrix4fv(modelMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glDrawArrays(GL_TRIANGLES, 6, 6);
@@ -493,47 +502,62 @@ int main()
 			cameraMoveLeftRight -= 0.001f;
 			cameraLookLeftRight -= 0.001f;
 		}
-		else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
 			cameraMoveLeftRight += 0.001f;
 			cameraLookLeftRight += 0.001f;
-
 		}
-		else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
 			cameraMoveForwardBackward -= 0.001f;
 			cameraLookForwardBackward -= 0.001f;
 
 		}
-		else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		{
 			cameraMoveForwardBackward += 0.001f;
 			cameraLookForwardBackward += 0.001f;
 		}
 		
-		else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
 			cameraLookUpDown += 0.001f;
 		}
-		else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		{
 			cameraLookUpDown -= 0.001f;
 		}
-		else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		{
 			cameraLookLeftRight -= 0.001f;
 		}
-		else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		{
 			cameraLookLeftRight += 0.001f;
 		}
-		else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
 			cameraMoveForwardBackward = 1.0f;
 			cameraMoveLeftRight = 0.0f;
 			cameraLookUpDown = 0.0f;
 			cameraLookLeftRight = 0.0f;
 		}
+        if (glfwGetKey(window, GLFW_KEY_U))
+        {
+            if(ambientStrength > 0)
+            {
+            ambientStrength -= 0.02f;
+            }
+        }
+        if (glfwGetKey(window, GLFW_KEY_I))
+        {
+            if(ambientStrength < 1)
+            {
+            ambientStrength += 0.02f;
+            }
+        }
         glUniformMatrix4fv(viewMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
         glUniformMatrix4fv(projectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(perspectiveProjMatrix));
 	}

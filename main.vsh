@@ -45,7 +45,8 @@ void main()
     
     fragNormal = vec3(model) * vertexNormal;
     
-    gl_Position = projection * view * model * semiFinalPosition;
+//    gl_Position = projection * view * model * semiFinalPosition;
+    gl_Position = semiFinalPosition;
 	
 	outUV = vertexUV;
 	outColor = vertexColor;
