@@ -8,12 +8,12 @@
 #include <iostream>
 #include <string>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 // ---------------
 // Function declarations
@@ -61,9 +61,6 @@ struct Vertex
 	GLfloat u, v;		// UV coordinates
 };
 
-// Psuedotime
-GLfloat pseudoTime = 0.0f;
-
 /// <summary>
 /// Main function.
 /// </summary>
@@ -91,7 +88,7 @@ int main()
 	// Tell GLFW to create a window
 	float windowWidth = 800;
 	float windowHeight = 800;
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Coordinate Spaces", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Final Project", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cerr << "Failed to create GLFW window!" << std::endl;
@@ -112,64 +109,67 @@ int main()
 		return 1;
 	}
 
+	float time = 0;
+
 	// --- Vertex specification ---
 
-    Vertex vertices[36];
+	Vertex vertices[36];
 
-                    // Position                Color                UV
-    //Front
-    vertices[0] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.67f };    // Lower-left
-    vertices[1] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,        0.5f, 0.67f };    // Lower-right
-    vertices[2] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.33f };    // Upper-right
+	// Position				Color				UV
+	//Front Face
+	vertices[0] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[1] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[2] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
 
-    vertices[3] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,        0.5f, 0.33f };    // Upper-right
-    vertices[4] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,        0.25f, 0.33f };    // Upper-left
-    vertices[5] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,        0.25f, 0.67f };    // Lower-left
-    
-    //Back
-    vertices[6] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.67f };    // Lower-left
-    vertices[7] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,        0.75f, 0.67f };    // Lower-right
-    vertices[8] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.33f };    // Upper-right
+	vertices[3] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[4] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[5] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
 
-    vertices[9] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.75f, 0.33f };    // Upper-right
-    vertices[10] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        1.0f, 0.33f };    // Upper-left
-    vertices[11] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,        1.0f, 0.67f };    // Lower-left
-    
-    //Left Face
-    vertices[12] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.67f };// Lower-left back
-    vertices[13] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,       0.25f, 0.67f }; // Lower-left front
-    vertices[14] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.33f };  // Upper-left front
-    
-    vertices[15] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,       0.25f, 0.33f };  // Upper-left front
-    vertices[16] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,       0.0f, 0.33f };  // Upper-left back
-    vertices[17] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.0f, 0.67f };  // Lower-left back
-    
-    //Right Face
-    vertices[18] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.67f };  // Lower-right Front
-    vertices[19] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,     0.75f, 0.67f };  // Lower-right Back
-    vertices[20] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,     0.75f, 0.33f };   // Upper-right Back
-    
-    vertices[21] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,      0.75f, 0.33f };   // Upper-right Back
-    vertices[22] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,      0.5f, 0.33f };   // Upper-right Front
-    vertices[23] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,     0.5f, 0.67f };  // Lower-right Front
-    
-    //Top
-    vertices[24] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f };  // Upper-left Front
-    vertices[25] = { 0.5f, 0.5f, 0.5f,        255, 255, 255,       0.5f, 0.33f };  // Upper-right Front
-    vertices[26] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 0.0f };  // Upper-right Back
-    
-    vertices[27] = { 0.5f, 0.5f, -0.5f,        255, 255, 255,        0.5f, 0.0f };  // Upper-right Back
-    vertices[28] = { -0.5f, 0.5f, -0.5f,        255, 255, 255,        0.25f, 0.0f };  // Upper-left Back
-    vertices[29] = { -0.5f, 0.5f, 0.5f,        255, 255, 255,      0.25f, 0.33f };  // Upper-left Front
-     
-    //Bottom
-    vertices[30] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,     0.25f, 1.0f };  // Lower-left Back
-    vertices[31] = { 0.5f, -0.5f, -0.5f,        255, 255, 255,      0.5f, 1.0f };  // Lower-right Back
-    vertices[32] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,       0.5f, 0.67f };  // Lower-right Front
-    
-    vertices[33] = { 0.5f, -0.5f, 0.5f,        255, 255, 255,      0.5f, 0.67f };  // Lower-right Front
-    vertices[34] = { -0.5f, -0.5f, 0.5f,        255, 255, 255,      0.25f, 0.67f };  // Lower-left Front
-    vertices[35] = { -0.5f, -0.5f, -0.5f,        255, 255, 255,      0.25f, 1.0f };  // Lower-left Back
+
+	//Back Face
+	vertices[6] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[7] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[8] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
+
+	vertices[9] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[10] = { -0.5f, 0.5f, -0.5f,	255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[11] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		1.0f, 0.0f };	// Lower-right
+
+	//Top Face
+	vertices[12] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[13] = { 0.5f, 0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[14] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+
+	vertices[15] = { 0.5f, 0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[16] = { -0.5f, 0.5f, -0.5f,	255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[17] = { -0.5f, 0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+
+	//Bottom Face
+	vertices[18] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[19] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[20] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+
+	vertices[21] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[22] = { -0.5f, -0.5f,-0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[23] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+
+	//Right Face
+	vertices[24] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[25] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[26] = { 0.5f, 0.5f, -0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
+
+	vertices[27] = { 0.5f, 0.5f, -0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[28] = { 0.5f, 0.5f, 0.5f,			255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[29] = { 0.5f, -0.5f, 0.5f,			255, 255, 255,		0.0f, 0.0f };	// Lower-left
+
+	//Left Face
+	vertices[30] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
+	vertices[31] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f };	// Lower-right
+	vertices[32] = { -0.5f, 0.5f, 0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
+
+	vertices[33] = { -0.5f, 0.5f, 0.5f,			255, 255, 255,		1.0f, 1.0f };	// Upper-right
+	vertices[34] = { -0.5f, 0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f };	// Upper-left
+	vertices[35] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f };	// Lower-left
 
 	// Create a vertex buffer object (VBO), and upload our vertices data to the VBO
 	GLuint vbo;
@@ -201,11 +201,11 @@ int main()
 	glBindVertexArray(0);
 
 	// Create a shader program
-	GLuint program = CreateShaderProgram("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.vsh", "/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/main.fsh");
+	GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 
 	// Tell OpenGL the dimensions of the region where stuff will be drawn.
 	// For now, tell OpenGL to use the whole screen
-//	glViewport(0, 0, windowWidth, windowHeight);
+	glViewport(0, 0, windowWidth, windowHeight);
 
 	// Create a variable that will contain the ID for our texture,
 	// and use glGenTextures() to generate the texture itself
@@ -224,7 +224,7 @@ int main()
 	int imageWidth, imageHeight, numChannels;
 
 	// Read the image data and store it in an unsigned char array
-	unsigned char* imageData = stbi_load("/Users/Anton/Documents/OpenGL/projects/helloTriangle/helloTriangle/dice.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+	unsigned char* imageData = stbi_load("pepe.jpg", &imageWidth, &imageHeight, &numChannels, 0);
 
 	// Make sure that we actually loaded the image before uploading the data to the GPU
 	if (imageData != nullptr)
@@ -256,16 +256,22 @@ int main()
 		std::cerr << "Failed to load image" << std::endl;
 	}
 
-    //Depth tst
-    glEnable(GL_DEPTH_TEST);
-    
+	glEnable(GL_DEPTH_TEST);
+
+	float cameraMoveForwardBackward = 1.0f;
+	float cameraMoveLeftRight = 0.0f;
+	float cameraLookUpDown = 0.0f;
+	float cameraLookLeftRight = 0.0f;
+	float cameraLookForwardBackward = 0.0f;
+
 	// Render loop
 	while (!glfwWindowShouldClose(window))
 	{
-        
-        pseudoTime += 1.3f;
 		// Clear the color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Get time for rotation
+		time = glfwGetTime() * 60;
 
 		// Use the shader program that we created
 		glUseProgram(program);
@@ -280,111 +286,82 @@ int main()
 		// Make our sampler in the fragment shader use texture unit 0
 		GLint texUniformLocation = glGetUniformLocation(program, "tex");
 		glUniform1i(texUniformLocation, 0);
-        
-        
-        // Cube 1
-        glm::mat4 transform = glm::mat4(1.0f);
-        transform = glm::translate(transform, glm::vec3(1.0f, 0.0f, 0.0f));
-        transform = glm::rotate(transform,  glm::radians(pseudoTime), glm::vec3(0.0f, 1.0f, 0.0f));
-        transform = glm::scale(transform, glm::vec3(0.3f, 0.3f, 0.3f));
-        
-        glm::mat4 viewmat = glm::lookAt(glm::vec3(0.5, 0.0, 1.25), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0, 1.0, 0.0));
-        glm::mat4 projmat = glm::perspective(90.0f, 1.0f, 0.001f, 100.f);
-        
-        glm::mat4 product = projmat * viewmat * transform;
 
-        GLint transformationMatrixUniformLocation = glGetUniformLocation(program, "transformationMatrix");
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
 
-        // Cube 2
-        glm::mat4 transformTwo = glm::mat4(1.0f);
-        transformTwo = glm::translate(transformTwo, glm::vec3(-0.5f, 1.8f, -0.3f));
-        transformTwo = glm::rotate(transformTwo,  glm::radians(pseudoTime), glm::vec3(-1.0f, 1.0f, 1.0f));
-        transformTwo = glm::scale(transformTwo, glm::vec3(0.3f, 0.3f, 0.3f));
-        
-        product = projmat * viewmat * transformTwo;
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
-        
-        // Cube 3
-        glm::mat4 transformThree = glm::mat4(1.0f);
-        transformThree = glm::translate(transformThree, glm::vec3(-1.0f, -1.0f, 0.3f));
-        transformThree = glm::rotate(transformThree,  glm::radians(pseudoTime), glm::vec3(1.0f, 0.0f, 0.0f));
-        transformThree = glm::scale(transformThree, glm::vec3(0.4f, 0.4f, 0.4f));
-        product = projmat * viewmat * transformThree;
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
+		// View Matrix and Perspective Projection Matrix
+		glm::mat4 viewMatrix = glm::mat4(1.0f);
+		viewMatrix = glm::lookAt(glm::vec3(cameraMoveLeftRight, 0.0f, cameraMoveForwardBackward), glm::vec3(cameraLookLeftRight, cameraLookUpDown, cameraLookForwardBackward), glm::vec3(0.0f, 1.0f, 0.0f));
 
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
-        
-        // Cube 4 rotating on origin
-        glm::mat4 transformFour = glm::mat4(1.0f);
-        transformFour = glm::translate(transformFour, glm::vec3(sinf(pseudoTime/70)/2, cosf(pseudoTime/70)/2, 0.0f));
-        transformFour = glm::rotate(transformFour,  glm::radians(pseudoTime), glm::vec3(2.0f, 0.0f, 0.0f));
-        transformFour = glm::scale(transformFour, glm::vec3(0.3f, 0.3f, 0.3f));
-        
-        product = projmat * viewmat * transformFour;
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
+		float aspectRatio = windowWidth / windowHeight;
+		glm::mat4 perspectiveProjMatrix = glm::perspective(90.0f, aspectRatio, 0.1f, 100.0f);
 
-    
-        // Cube 5 rotating on cube 1
-        glm::mat4 transformFive = glm::mat4(1.0f);
-        //translate is at cube 1's local origin
-        transformFive = glm::translate(transformFive, glm::vec3(1.0f, 0.0f, 0.0f));
-        // Sin and Cos divided by 2 to achieve a 0.5 radius
-        transformFive = glm::translate(transformFive, glm::vec3(-cosf(pseudoTime/70)/2.5, cosf(pseudoTime/70)/2.5, sinf(pseudoTime/70)/2.5));
-        transformFive = glm::rotate(transformFive,  glm::radians(pseudoTime), glm::vec3(2.0f, 1.0f, 1.0f));
-        transformFive = glm::scale(transformFive, glm::vec3(0.15f, 0.15f, 0.15f));
-        
-        product = projmat * viewmat * transformFive;
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
-        
-        
-        //cube 6 at origin
-        glm::mat4 transformSix = glm::mat4(1.0f);
-        transformSix = glm::scale(transformSix, glm::vec3(0.2f, 0.2f, 0.2f));
-        product = projmat * viewmat * transformSix;
-        glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(product));
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawArrays(GL_TRIANGLES, 6, 6);
-        glDrawArrays(GL_TRIANGLES, 12, 6);
-        glDrawArrays(GL_TRIANGLES, 18, 6);
-        glDrawArrays(GL_TRIANGLES, 24, 6);
-        glDrawArrays(GL_TRIANGLES, 30, 6);
+		// Room Cube
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		// modelMatrix = glm::rotate(modelMatrix, glm::radians(time), glm::vec3(0.0f, .0f, 0.0f));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(4.0f, 4.0f,4.0f));
 
-        
+		glm::mat4 finalMatrix = perspectiveProjMatrix * viewMatrix * modelMatrix;
+
+		GLint transformationMatrixUniformLocation = glGetUniformLocation(program, "transformationMatrix");
+		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 6, 6);
+		glDrawArrays(GL_TRIANGLES, 12, 6);
+		glDrawArrays(GL_TRIANGLES, 18, 6);
+		glDrawArrays(GL_TRIANGLES, 24, 6);
+		glDrawArrays(GL_TRIANGLES, 30, 6);
+
+
+		// Table Cube
+		glm::mat4 secondCube = glm::mat4(1.0f);
+		secondCube = glm::translate(secondCube, glm::vec3(0.0f, -1.5f, 0.0f));
+		secondCube = glm::scale(secondCube, glm::vec3(1.75f, 0.75f, 1.0f));
+
+		finalMatrix = perspectiveProjMatrix * viewMatrix * secondCube;
+		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 6, 6);
+		glDrawArrays(GL_TRIANGLES, 12, 6);
+		glDrawArrays(GL_TRIANGLES, 18, 6);
+		glDrawArrays(GL_TRIANGLES, 24, 6);
+		glDrawArrays(GL_TRIANGLES, 30, 6);
+
+		// Front Chair
+		glm::mat4 thirdCube = glm::mat4(1.0f);
+		thirdCube = glm::translate(thirdCube, glm::vec3(0.0f, -1.75f, 1.0f));
+		thirdCube = glm::scale(thirdCube, glm::vec3(0.5f, 0.5f, 0.5f));
+
+		finalMatrix = perspectiveProjMatrix * viewMatrix * thirdCube;
+		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 6, 6);
+		glDrawArrays(GL_TRIANGLES, 12, 6);
+		glDrawArrays(GL_TRIANGLES, 18, 6);
+		glDrawArrays(GL_TRIANGLES, 24, 6);
+		glDrawArrays(GL_TRIANGLES, 30, 6);
+
+
+		// Back Chair
+		glm::mat4 fourthCube = glm::mat4(1.0f);
+		fourthCube = glm::translate(fourthCube, glm::vec3(0.0f, -1.75f, -1.0f));
+		fourthCube = glm::scale(fourthCube, glm::vec3(0.5f, 0.5f, 0.5f));
+
+		finalMatrix = perspectiveProjMatrix * viewMatrix * fourthCube;
+		glUniformMatrix4fv(transformationMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 6, 6);
+		glDrawArrays(GL_TRIANGLES, 12, 6);
+		glDrawArrays(GL_TRIANGLES, 18, 6);
+		glDrawArrays(GL_TRIANGLES, 24, 6);
+		glDrawArrays(GL_TRIANGLES, 30, 6);
+
+
+
 		// "Unuse" the vertex array object
 		glBindVertexArray(0);
 
@@ -393,6 +370,54 @@ int main()
 
 		// Tell GLFW to process window events (e.g., input events, window closed events, etc.)
 		glfwPollEvents();
+
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		{
+			cameraMoveLeftRight -= 0.001f;
+			cameraLookLeftRight -= 0.001f;
+		}
+		else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		{
+			cameraMoveLeftRight += 0.001f;
+			cameraLookLeftRight += 0.001f;
+
+		}
+		else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			cameraMoveForwardBackward -= 0.001f;
+			cameraLookForwardBackward -= 0.001f;
+
+		}
+		else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			cameraMoveForwardBackward += 0.001f;
+			cameraLookForwardBackward += 0.001f;
+		}
+		
+		else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			cameraLookUpDown += 0.001f;
+		}
+		else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		{
+			cameraLookUpDown -= 0.001f;
+		}
+		else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		{
+			cameraLookLeftRight -= 0.001f;
+		}
+		else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		{
+			cameraLookLeftRight += 0.001f;
+		}
+
+		else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		{
+			cameraMoveForwardBackward = 1.0f;
+			cameraMoveLeftRight = 0.0f;
+			cameraLookUpDown = 0.0f;
+			cameraLookLeftRight = 0.0f;
+		}
 	}
 
 	// --- Cleanup ---
