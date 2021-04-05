@@ -35,9 +35,20 @@ void main()
 	float diff = clamp(dot(lightDir, fragNormal), 0,1);
 	vec3 diffuseFinal = diffuseColor * diff;
 
-	
+
+//    https://opengl-notes.readthedocs.io/en/latest/topics/texturing/aliasing.html
+    float fogMax = 1.0;
+    float fogMin = 0.1;
+    vec4  fogColor = vec4(0.6, 0.6, 0.6, 1.0);
+
+    // Calculate fog
+    float fogFactor = (fogMax - 0.3f) / (fogMax - fogMin);
+    fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+    
+    
 //	vec3 finalColor= (ambient + diffuseFinal) * outColor;
     vec4 finalColor= vec4(ambient + diffuseFinal, 1.0f) * fragColor;
 //	fragColor = fragColor * vec4(finalColor, 1.0f);
-    fragColor = finalColor;
+    fragColor = finalColor * fogFactor * fogColor;
 }
